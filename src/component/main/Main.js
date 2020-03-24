@@ -5,35 +5,35 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      startWork: '-',
-      endWork: '-'
+      start: '-',
+      end: '-'
     }
   }
 
   handleClickStartWork = () => {
     var date = new Date();
-    var startWork = date.getHours() + '시 ' + date.getMinutes() + '분 ' + date.getSeconds() + '초';
+    var start = date.getHours() + '시 ' + date.getMinutes() + '분 ' + date.getSeconds() + '초';
     this.setState({
-      startWork: startWork
+      start: start
     });
   }
 
   handleClickEndWork = () => {
     var date = new Date();
-    var endWork = date.getHours() + '시 ' + date.getMinutes() + '분 ' + date.getSeconds() + '초';
+    var end = date.getHours() + '시 ' + date.getMinutes() + '분 ' + date.getSeconds() + '초';
     this.setState({
-      endWork: endWork
+      end: end
     });
   }
 
   render() {
     return ( 
       <div className="Main">
-        <div id="startWork" className="start_work">{this.state.startWork}</div>
-        <div id="endWork" className="end_work">{this.state.endWork}</div>
+        <div id="start" className="start_work">{this.state.start}</div>
+        <div id="end" className="end_work">{this.state.end}</div>
         <div id="buttonBox" className="button_box">
-            <button id="startWorkBtn" className="work_btn default" onClick={this.handleClickStartWork}>출근</button>
-            <button id="endWorkBtn" className="work_btn default" onClick={this.handleClickEndWork}>퇴근</button>
+            <button className="work_btn default" onClick={this.handleClickStartWork}>{this.props.start}</button>
+            <button className="work_btn default" onClick={this.handleClickEndWork}>{this.props.end}</button>
         </div>
       </div>
     ); 

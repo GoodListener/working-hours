@@ -1,6 +1,6 @@
 import React from 'react'
-import Header from './header/Header'
-import Main from './main/Main'
+import Header from '../../component/header/Header'
+import Main from '../../component/main/Main'
 
 export default function() {
     function getDate () {
@@ -11,7 +11,7 @@ export default function() {
     return (
         <div className="App">
             <Header date={getDate()}></Header>
-            <Main></Main>
+            <Main start="시작" end="끝"></Main>
         </div>
     );
 }

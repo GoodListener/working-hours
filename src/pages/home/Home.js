@@ -2,8 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 
-export default function(props) {
-    console.log(props.store);
+export default function() {
     return (
         <div className="home">
             <form>

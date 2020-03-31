@@ -1,8 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
+import fireStore from '../../fireStore/fireStore';
 
 export default function() {
+    console.log(fireStore.collection('user'));
+
     return (
         <div className="home">
             <form>

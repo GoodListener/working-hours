@@ -2,9 +2,7 @@ import React from 'react'
 import Header from '../../component/header/Header'
 import Main from '../../component/main/Main'
 
-export default function(props) {
-    console.log(props);
-
+export default function() {
     function getDate () {
         var date = new Date();
         return date.getFullYear() + '년 ' + (date.getMonth() + 1) + '월 ' + date.getDate() + '일'

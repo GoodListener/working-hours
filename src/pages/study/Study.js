@@ -2,7 +2,8 @@ import React from 'react'
 import Header from '../../component/header/Header'
 import Main from '../../component/main/Main'
 
-export default function() {
+export default function(props) {
+
     function getDate () {
         var date = new Date();
         return date.getFullYear() + '년 ' + (date.getMonth() + 1) + '월 ' + date.getDate() + '일'
@@ -11,7 +12,7 @@ export default function() {
     return (
         <div className="App">
             <Header date={getDate()}></Header>
-            <Main start="시작" end="끝"></Main>
+            <Main startWord="시작" endWord="끝"></Main>
         </div>
     );
 }

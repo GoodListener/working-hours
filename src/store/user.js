@@ -1,12 +1,12 @@
 const LOGIN = 'user/LOGIN';
 const LOGOUT = 'user/LOGOUT';
 
-export const login = user => ({type: login, user});
-export const logout = user => ({type: logout, user});
+export const login = user => ({type: LOGIN, user});
+export const logout = user => ({type: LOGOUT, user});
 
 const initialState = {
     isLogined: false,
-    userName: '',
+    userName: ''
 };
 
 export default function user(state = initialState, action) {

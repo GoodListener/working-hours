@@ -10,19 +10,29 @@ class Main extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps){
+    if (this.props !== prevProps) {
+      this.setState({
+        ...this.state,
+        start: this.formatDate(new Date(this.props.startTime * 1000)),
+        end: this.formatDate(new Date(this.props.endTime * 1000))
+      })
+    }
+  }
+
+  formatDate = (date) => {
+    return date.getHours() + '시 ' + date.getMinutes() + '분 ' + date.getSeconds() + '초';
+  }
+
   handleClickStartWork = () => {
-    var date = new Date();
-    var start = date.getHours() + '시 ' + date.getMinutes() + '분 ' + date.getSeconds() + '초';
     this.setState({
-      start: start
+      start: this.formatDate(new Date())
     });
   }
 
   handleClickEndWork = () => {
-    var date = new Date();
-    var end = date.getHours() + '시 ' + date.getMinutes() + '분 ' + date.getSeconds() + '초';
     this.setState({
-      end: end
+      end: this.formatDate(new Date())
     });
   }
 
@@ -32,8 +42,8 @@ class Main extends React.Component {
         <div id="start" className="start_work">{this.state.start}</div>
         <div id="end" className="end_work">{this.state.end}</div>
         <div id="buttonBox" className="button_box">
-            <button className="work_btn default" onClick={this.handleClickStartWork}>{this.props.start}</button>
-            <button className="work_btn default" onClick={this.handleClickEndWork}>{this.props.end}</button>
+            <button className="work_btn default" onClick={this.handleClickStartWork}>{this.props.startWord}</button>
+            <button className="work_btn default" onClick={this.handleClickEndWork}>{this.props.endWord}</button>
         </div>
       </div>
     ); 

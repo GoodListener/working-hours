@@ -28,12 +28,14 @@ class Main extends React.Component {
     this.setState({
       start: this.formatDate(new Date())
     });
+    this.props.onClickStartTime(new Date());
   }
 
   handleClickEndWork = () => {
     this.setState({
       end: this.formatDate(new Date())
     });
+    this.props.onClickEndTime(new Date());
   }
 
   render() {

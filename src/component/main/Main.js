@@ -21,6 +21,9 @@ class Main extends React.Component {
   }
 
   formatDate = (date) => {
+    if (date.toString() === "Invalid Date") {
+      return "-";
+    }
     return date.getHours() + '시 ' + date.getMinutes() + '분 ' + date.getSeconds() + '초';
   }
 
@@ -38,6 +41,10 @@ class Main extends React.Component {
     this.props.onClickEndTime(new Date());
   }
 
+  handleClickCompleteWork = () => {
+    this.props.onClickComplete();
+  }
+
   render() {
     return ( 
       <div className="Main">
@@ -47,6 +54,15 @@ class Main extends React.Component {
             <button className="work_btn default" onClick={this.handleClickStartWork}>{this.props.startWord}</button>
             <button className="work_btn default" onClick={this.handleClickEndWork}>{this.props.endWord}</button>
         </div>
+        {(() => {
+          if (this.state.start !== '-' && this.state.end !== '-') {
+            return (
+              <div>
+                  <button className="work_btn" onClick={this.handleClickCompleteWork}>complete</button>
+              </div>
+            )
+          } 
+        })()}
       </div>
     ); 
   }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import fireStore from '../../fireStore/fireStore';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
@@ -38,23 +39,26 @@ class Login extends React.Component {
     }
 
     render () {
-        return ((() => {
-            if (this.props.user.isLogined) {
-                return (
-                <Button type="button" onClick={this.logout}>LOGOUT</Button>
-            )} else {
-                return (
-                    <form onSubmit={this.login}>
-                        <TextField 
-                        id="userName"
-                        name="userName"
-                        onChange={this.handleNameChange}
-                        label="이름"></TextField>
-                        <Button type="submit">LOGIN</Button>
-                    </form>
-                )
-            }
-        })())
+        return (<div>
+                {(() => {
+                    if (this.props.user.isLogined) {
+                        return (
+                        <Button type="button" onClick={this.logout}>LOGOUT</Button>
+                    )} else {
+                        return (
+                            <form onSubmit={this.login}>
+                                <TextField 
+                                id="userName"
+                                name="userName"
+                                onChange={this.handleNameChange}
+                                label="이름"></TextField>
+                                <Button type="submit">LOGIN</Button>
+                            </form>
+                        )
+                    }
+                })()}
+                </div>
+        )
     }
 }
 

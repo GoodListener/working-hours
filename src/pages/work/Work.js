@@ -15,6 +15,7 @@ class Work extends React.Component {
             startTime: '-',
             endTime: '-'
         }
+        console.log('로딩중');
         this.getDoc();
     }
 
@@ -24,11 +25,12 @@ class Work extends React.Component {
             userData.collection('work')
             .where('start', '>=', this.getYesterday())
             .where('state', '==', RUNNING).get().then(docs => {
+                console.log('로딩완료');
                 docs.forEach(doc => {
                     this.setState({
                         id: doc.id,
-                        startTime: doc.data().start.seconds ? doc.data().start.seconds : '-',
-                        endTime: doc.data().end.seconds ? doc.data().end.seconds : '-',
+                        startTime: doc.data().start.seconds ? doc.data().start.seconds * 1000 : '-',
+                        endTime: doc.data().end.seconds ? doc.data().end.seconds * 1000 : '-',
                     })
                 })
             })
@@ -58,12 +60,16 @@ class Work extends React.Component {
 
     setStartTime = (date) => {
         if (this.props.user.isLogined) {
+            this.setState({
+                ...this.state,
+                startTime: date
+            })
+
             var userData = fireStore.collection('users').doc(this.props.user.userName);
             if (this.state.id) {
-                userData.collection('work').doc(this.state.id).set({
+                userData.collection('work').doc(this.state.id).update({
                     state: RUNNING,
-                    start: date,
-                    end: {}
+                    start: date
                 });
             } else {
                 userData.collection('work').add({
@@ -81,8 +87,12 @@ class Work extends React.Component {
 
     setEndTime = (date) => {
         if (this.props.user.isLogined) {
-            var userData = fireStore.collection('users').doc(this.props.user.userName);
             if (this.state.id) {
+                this.setState({
+                    ...this.state,
+                    endTime: date
+                })
+                var userData = fireStore.collection('users').doc(this.props.user.userName);
                 userData.collection('work').doc(this.state.id).update({
                     end: date
                 });
@@ -98,8 +108,8 @@ class Work extends React.Component {
                 var userData = fireStore.collection('users').doc(this.props.user.userName);
                 userData.collection('work').doc(this.state.id).update({
                     state: COMPLETE
-                }).then(res => {
-                    console.log(res);
+                }).then(() => {
+                    this.props.history.replace('/');
                 })
             }
         }

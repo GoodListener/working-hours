@@ -14,8 +14,8 @@ class Main extends React.Component {
     if (this.props !== prevProps) {
       this.setState({
         ...this.state,
-        start: this.formatDate(new Date(this.props.startTime * 1000)),
-        end: this.formatDate(new Date(this.props.endTime * 1000))
+        start: this.formatDate(new Date(this.props.startTime)),
+        end: this.formatDate(new Date(this.props.endTime))
       })
     }
   }
@@ -28,16 +28,16 @@ class Main extends React.Component {
   }
 
   handleClickStartWork = () => {
-    this.setState({
-      start: this.formatDate(new Date())
-    });
+    // this.setState({
+    //   start: this.formatDate(new Date())
+    // });
     this.props.onClickStartTime(new Date());
   }
 
   handleClickEndWork = () => {
-    this.setState({
-      end: this.formatDate(new Date())
-    });
+    // this.setState({
+    //   end: this.formatDate(new Date())
+    // });
     this.props.onClickEndTime(new Date());
   }
 

@@ -2,6 +2,9 @@ import React from 'react';
 import { Button } from '@material-ui/core';
 import moment from 'moment';
 import './Calendar.css';
+import fireStore from '../../fireStore/fireStore';
+import { connect } from 'react-redux';
+import { getDefaultNormalizer } from '@testing-library/react';
 
 class Calendar extends React.Component {
     constructor(props) {
@@ -12,6 +15,7 @@ class Calendar extends React.Component {
     }
 
     generate = () => {
+        const workingDates = this.getWorkingData(this.state.current);
         const today = this.state.current;
         const startWeek = today.clone().startOf('month').week();
         const endWeek = today.clone().endOf('month').week() === 1 ? 53 : today.clone().endOf('month').week();
@@ -24,8 +28,13 @@ class Calendar extends React.Component {
                   let current = today.clone().week(week).startOf('week').add(n + i, 'day')
                   let isSelected = today.format('YYYYMMDD') === current.format('YYYYMMDD') ? 'selected' : '';
                   let isGrayed = current.format('MM') === today.format('MM') ? '' : 'grayed';
+                  let isWorked = workingDates.includes(current.format('YYMMDD')) ? "work" : "not_work";
                   return (
-                    <div className={`box ${isSelected} ${isGrayed} ${i === 0 ? "sun" : ""} ${i === 6 ? "sat" : ""}`} key={i}>
+                    <div className={`box ${isSelected} ${isGrayed} 
+                        ${i === 0 ? "sun" : ""} 
+                        ${i === 6 ? "sat" : ""} 
+                        ${isWorked}`} 
+                        key={i}>
                       <span className={`text`}>{current.format('D')}</span>
                     </div>
                   )
@@ -35,6 +44,19 @@ class Calendar extends React.Component {
           )
         }
         return calendar;
+    }
+
+    getWorkingData = (current) => {
+        current.startOf('month');
+        current.endOf('month');
+        var userData = fireStore.collection('users').doc(this.props.user.userName);
+        userData.collection('work')
+        .where('start', '>=', current.startOf('month').toDate())
+        .where('start', '<=', current.endOf('month').toDate())
+        .get().then(docs => {
+            docs.forEach(doc => {console.log(moment().milliseconds(doc.data().start))});
+        })
+        return ['200411','200412',5,7];
     }
 
     beforeMonth = () => {
@@ -71,4 +93,7 @@ class Calendar extends React.Component {
             
 }
 
-export default Calendar;
+export default connect(
+    state => ({ user: state }),
+    { }
+)(Calendar)

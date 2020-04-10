@@ -1,0 +1,24 @@
+.calendar_header {
+    display: flex;
+}
+
+.calendar_body {
+    display: flex;
+}
+
+.box {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.sun {
+    color: #f00;
+}
+
+.sat {
+    color: #00f;
+}
+
+.grayed {
+    color: #f0f0f0;
+}
